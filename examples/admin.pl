@@ -2,12 +2,13 @@
 
 use strict;
 
-use CGI qw(-no_xhtml);
+use lib '/home/wolfgang/programmes/perl/CGI-Listman';
+use CGI;
 use CGI::Carp qw(fatalsToBrowser);
+use CGI::Listman;
+use CGI::Listman::exporter;
 use POSIX qw(strftime);
 
-use lib '/home/wolfgang/programmes/perl/CGI-Listman';
-use CGI::Listman;
 use lib '.';
 use config;
 
@@ -209,7 +210,7 @@ sub make_export_uri {
 
 #   open OUTF, '>'.$config::list_dir.'/'.export_file;
 #   open INF, $config::list_dir.'/'.$config::list_name.'.csv'
-#     or die "Could not open ".$config::list_dir.'/'.$config::list_name.'.csv'."\n";
+#     or carp "Could not open ".$config::list_dir.'/'.$config::list_name.'.csv'."\n";
 #   while (<INF>) {
 #     my $line = $_;
 
@@ -235,7 +236,7 @@ sub make_export_uri {
 
 #   if (defined $new_content) {
 #     open OUTF, '>'.$config::list_dir.'/'.$config::list_name.'.csv'
-#       or die "Could not open ".$config::list_dir.'/'.$config::list_name.'.csv'."\n";
+#       or carp "Could not open ".$config::list_dir.'/'.$config::list_name.'.csv'."\n";
 #     print OUTF $new_content;
 #     close OUTF;
 #   }
@@ -311,19 +312,19 @@ sub perform_edit_action {
   my ($listman, $edit_action, $dictionary, $edit_key) = @_;
 
   my $term = $dictionary->get_term ($edit_key)
-    or die "Performing action on an unknown key!?\n";
+    or carp "Performing action on an unknown key!?\n";
 
   if ($edit_action eq 'mandatory') {
     $term->{'mandatory'} = (!$term->{'mandatory'});
   } elsif ($edit_action eq 'increase') {
     my $contents = $listman->list_contents ();
-    die "Videz d'abord la liste avant d'effectuer"
+    carp "Videz d'abord la liste avant d'effectuer"
       ." tout changement sur l'ordre des clefs!\n"
 	if (defined $contents && @$contents);
     $dictionary->increase_term_pos ($term);
   } elsif ($edit_action eq 'decrease') {
     my $contents = $listman->list_contents ();
-    die "Videz d'abord la liste avant d'effectuer"
+    carp "Videz d'abord la liste avant d'effectuer"
       ." tout changement sur l'ordre des clefs!\n"
 	if (defined $contents && @$contents);
     $dictionary->decrease_term_pos ($term);
@@ -416,7 +417,7 @@ sub post_main {
     my $newdef = $cgi->param ('definition');
 
     my $term = $dictionary->get_term ($key);
-    die "Clef non-trouv&eacute;e.\n" unless (defined $term);
+    carp "Clef non-trouv&eacute;e.\n" unless (defined $term);
 
     $term->set_definition ($newdef);
     $dictionary->save ();
@@ -435,7 +436,7 @@ sub post_main {
 sub main {
   my $cgi = new CGI;
   my $rm = $cgi->request_method ();
-  die "No request method!??\n" unless ($rm);
+  carp "No request method!??\n" unless ($rm);
 
   $script_name = $ENV{'SCRIPT_NAME'};
   my $listman = CGI::Listman->new ($config::backend,
@@ -445,7 +446,7 @@ sub main {
   $listman->{'db_uname'} = $config::db_uname;
   $listman->{'db_passwd'} = $config::db_passwd;
   $listman->{'db_host'} = $config::db_host;
-  $listman->set_table_name ($config::db_table);
+#  $listman->set_table_name ($config::db_table);
 
   ($rm eq 'GET') ? get_main ($cgi, $listman) : post_main ($cgi, $listman);
 

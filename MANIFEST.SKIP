@@ -1,4 +1,4 @@
 ^debian
-/CVS/
-^CVS/
+CVS/
+examples/config.pm
 ~$

@@ -1,4 +1,5 @@
 ### CGI::Listman class ###
+#
 # class CGI::Listman {
 #   variables:
 #     db_name: string
@@ -21,6 +22,7 @@
 #   methods:
 #     check_params
 #     commit
+#     add_line
 #     delete_line
 #     delete_selection
 #     dictionary
@@ -29,14 +31,16 @@
 #     seek_line_by_num
 #     set_backend
 #     set_list_name
+#     set_list_directory
 #     set_table_name
 #     _dbi_setup (private)
 #     _db_connect (private)
 #     _db_fields_setup (private)
 #     _prepare_record (private)
 # }
-
+#
 ### CGI::Listman::line class ###
+#
 # class CGI::Listman::line {
 #   variables:
 #     data: array_ref
@@ -57,8 +61,9 @@
 #     update_fields
 #     _build_from_listman_data (private)
 # }
-
+#
 ### CGI::Listman::exporter class ###
+#
 # class CGI::Listman::exporter {
 #   variables:
 #     file_name: string
@@ -75,8 +80,9 @@
 #     save_file
 #     _read_file (private)
 # }
-
+#
 ### CGI::Listman::selection class ###
+#
 # class CGI::Listman::selection {
 #   variables:
 #     list: array_ref
@@ -86,8 +92,9 @@
 #     add_line_by_number
 #     add_lines_by_number
 # }
-
+#
 ### CGI::Listman::dictionary class ###
+#
 # class CGI::Listman::dictionary {
 #   variables:
 #     filename: string
@@ -107,8 +114,9 @@
 #     terms
 #     _load (private)
 # }
-
+#
 ### CGI::Listman::dictionary::term class ###
+#
 # class CGI::Listman::dictionary::term {
 #   variables:
 #     key: string
