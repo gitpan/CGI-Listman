@@ -19,7 +19,7 @@ use DBI;
 
 use vars qw($VERSION);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 sub new {
   my $class = shift;
@@ -51,7 +51,7 @@ sub set_backend {
     print STDERR "A backend is already defined ("
       .$self->{'dbi_backend'}.") for this CGI::Listman instance.\n"
   } else {
-    eval "use DBD::".$config::backend.";";
+    eval "use DBD::".$backend.";";
     die "This backend is not available:\n".$@ if ($@);
     $self->{'dbi_backend'} = $backend;
   }
@@ -502,8 +502,9 @@ sub new {
 
   my @lines;
   $self->{'file_name'} = shift;
+  $self->{'separator'} = shift || ',';
   $self->{'lines'} = \@lines;
-  $self->{'_csv'} = Text::CSV_XS->new ({sep_char => $config::separator,
+  $self->{'_csv'} = Text::CSV_XS->new ({sep_char => $self->{'separator'},
 					binary => 1});
   $self->{'_file_read'} = 0;
 
@@ -521,6 +522,12 @@ sub set_file_name {
       if (defined $self->{'file_name'});
   $self->{'file_name'} = $file_name;
   $self->_read_file ();
+}
+
+sub set_separator {
+  my ($self, $sep) = @_;
+
+  $self->{'separator'} = $sep;
 }
 
 sub add_line {
@@ -827,6 +834,8 @@ sub set_key {
   my ($self, $key) = @_;
 
   die "Bad key name.\n" unless (defined $key && $key ne '');
+  die 'This term already has a key name ("'.$self->{'key'}."\n"
+    if (defined $self->{'key'});
   $self->{'key'} = $key;
 }
 
@@ -878,6 +887,98 @@ web-based subscribtion lists. It implements concepts such as
 "dictionaries", "selections", "exporters", provides some checking
 facilities (field duplication or requirements) and uses the DBI interface
 so as to provide a backend-independent storage area (PostgreSQL, ...).
+
+=head1 API
+
+=head2 CGI::Listman
+
+THis class manages the listmanagers of your project. This is the very
+first class you want to instantiate. It is the logical central point of
+all others objects. Except for I<CGI::Listman::line>,
+I<CGI::Listman::exporter> and I<CGI::Listman::selection>, you should not
+call any other class's "new" method since I<CGI::Listman> will handle its
+own instances for you.
+
+Methods:
+
+=over
+
+=item new (opt: dbi_backend, list_name, list_dir)
+
+As for any perl class, new acts as the constructor for an instance of this
+class. It has three optional arguments that, if not specified, can be
+replaced with calls to the respective methods: I<set_backend>,
+I<set_list_name>, I<set_list_dir>.
+
+Examples:
+
+C<my $list_manager = CGI::Listman-E<gt>new;>
+
+C<my $list_manager = CGI::Listman-E<gt>new ('CSV', 'userlist', '/var/lib/weblists');>
+
+=item set_backend
+
+Defines the DBI backend used to store the data.
+
+=item set_list_name
+
+Gives a name to your list.
+
+=item set_list_dir
+
+Defines where the list's dictionary and data files are stored.
+
+=item set_table_name
+
+For database backends, gives the name of the table the lists has to be
+stored int.
+
+=item delete_line
+
+Delete a I<CGI::Listman::line> (see below) from this instance's list of
+lines.
+
+=item delete_selection
+
+Delete many lines at the same time through the use of a
+I<CGI::Listman::selection> (see below).
+
+=item dictionary
+
+Returns a reference to the I<CGI::Listman::dictionary> of this instance.
+There is only one dictionary for each instance. This method will
+automatically create and read the list's dictionary for you.
+
+=item list_contents
+
+Returns a reference to an ARRAY of the list's lines.
+
+=item load_lines
+
+Loads the line from the list database or storage file.
+
+=item seek_line_by_num
+
+Returns the n'th I<CGI::Listman::line> of this instance.
+
+=item commit
+
+This will commit any changes made to your instance, after which, that
+instance will be invalidated. As long as it is not called, you can of
+course apply any modifications to your instance. This limitation will
+probably be got rid of in a next release.
+
+=back
+
+=head2 CGI::Listman::line
+
+=head2 CGI::Listman::exporter
+
+=head2 CGI::Listman::selection
+
+=head2 CGI::Listman::dictionary
+
+=head2 CGI::Listman::dictionary::term
 
 =head1 AUTHOR
 

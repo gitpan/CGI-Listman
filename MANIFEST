@@ -1,7 +1,10 @@
 ChangeLog
-Listman.pm
+test.pl
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
 README
 schema.txt
+Listman.pm
+examples/config.pm.template
+examples/admin.pl

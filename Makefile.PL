@@ -12,15 +12,3 @@ WriteMakefile(
        AUTHOR     => 'Wolfgang Sourdeau <Wolfgang@iScream.ca>') : ()),
 );
 
-package MY;
-
-#sub postamble {
-#    "\npm_to_blib: README\n" .
-#    "\nREADME: Listman.pm" .
-#    "\n\tperldoc -t Listman.pm >README\n\n"
-#}
-
-sub libscan {
-    my($self, $path) = @_;
-    ($path =~ /\~$/) ? undef : $path;
-}
