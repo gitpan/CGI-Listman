@@ -30,6 +30,9 @@
 #     load_lines
 #     seek_line_by_num
 #     set_backend
+#     set_db_name
+#     set_user_infos
+#     set_host_infos
 #     set_list_name
 #     set_list_directory
 #     set_table_name

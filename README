@@ -1,4 +1,4 @@
-CGI::Listman 0.04 (apdOp)
+CGI::Listman 0.05 (apdOp)
 =========================
 
 CGI::Listman provides an object-oriented interface to easily manage
@@ -7,12 +7,15 @@ web-based subscribtion lists. It implements concepts such as
 facilities (field duplication or requirements) and uses the DBI interface
 so as to provide a backend-independent storage area (PostgreSQL, ...).
 
-Currently only the CSV backend is known to work for storing data. The
-MySQL backend support might work but has barely entered alpha stage. Once
-it is ready, it will be easy to implement for other SQL databases.
+Currently only the CSV and mysql backends are known to work for storing data.
+Other database engines might work and will certainly be added later.
 
 News
 ----
+2002-10-08 - revision 0.05
+	   - don't complain about "croak" when using Listman::exporter
+	   - completed mysql support
+
 2002-09-17 - revision 0.04
 	   - bugfix related to DBI insertions (see ChangeLog)
 	   - fixed dlsip from "adpOp" to "apdOp"
@@ -33,7 +36,8 @@ Dependencies
 ------------
 This module requires these other modules and libraries:
 
-  DBD
+  DBI
+  DBD::<whatever>
   Text::CSV_XS
 
 Quick installation instructions

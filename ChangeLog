@@ -1,3 +1,13 @@
+2002-10-08  Wolfgang Sourdeau  <wolfgang@contre.com>
+
+	* Listman/exporter.pm: we need to import Carp symbols to use
+	"croak".
+
+	* Listman.pm (set_db_name): new function.
+	(set_user_infos): new function.
+	(set_host_infos): new function.
+	- version number set to 0.05
+
 2002-09-17  Wolfgang Sourdeau  <wolfgang@contre.com>
 
 	* Listman.pm (_prepare_record): - to avoid errors with DBI

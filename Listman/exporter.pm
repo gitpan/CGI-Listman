@@ -11,6 +11,7 @@ use strict;
 
 package CGI::Listman::exporter;
 
+use Carp;
 use Text::CSV_XS;
 
 =pod
@@ -272,7 +273,7 @@ sub file_contents {
 =head2 save_file
 
 Except when defining and exporting the data put in a
-I<CGI::Listman::exporter> during the same CGI session, it is wyse to save
+I<CGI::Listman::exporter> during the same CGI session, it is wise to save
 its contents in-between.
 
 =over
@@ -342,6 +343,6 @@ modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<CGI::Listman::lines(3)> L<CGI::Listman::selection(3)>
+L<CGI::Listman::line(3)> L<CGI::Listman::selection(3)>
 
 =cut

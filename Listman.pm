@@ -19,7 +19,7 @@ use CGI::Listman::line;
 use CGI::Listman::selection;
 
 use vars qw($VERSION);
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 =pod
 
@@ -166,6 +166,134 @@ sub set_backend {
     croak "This backend is not available:\n".$@ if ($@);
     $self->{'dbi_backend'} = $backend;
   }
+}
+
+=pod
+
+=head2 set_db_name
+
+Defines the database where the list data has to be stored.
+
+=over
+
+=item Parameters
+
+=over
+
+=item db_name
+
+A string representing the database name. This information is required for
+non-file-based storage databases.
+
+=back
+
+=item Return values
+
+This method returns nothing.
+
+=back
+
+=cut
+
+sub set_db_name {
+  my ($self, $db_name) = @_;
+
+  croak "A database is already defined  (".$self->{'db_name'}
+    .") for this CGI::Listman instance.\n"
+      if (defined $self->{'db_name'} && $self->{'db_name'} ne '');
+
+  $self->{'db_name'} = $db_name;
+}
+
+=pod
+
+=head2 set_user_infos
+
+Defines the username and password needed to connect to the database.
+
+=over
+
+=item Parameters
+
+=over
+
+=item username
+
+A string representing the username.
+
+=item password
+
+A string representing the password.
+
+=back
+
+=item Return values
+
+This method returns nothing.
+
+=back
+
+=cut
+
+sub set_user_infos {
+  my ($self, $db_uname, $db_passwd) = @_;
+
+  croak "A password is already defined for this CGI::Listman instance.\n"
+    if (defined $self->{'db_passwd'} && $self->{'db_passwd'} ne '');
+  croak "A username is already defined (".$self->{'db_uname'}
+    .") for this CGI::Listman instance.\n"
+      if (defined $self->{'db_uname'} && $self->{'db_uname'} ne '');
+
+  $self->{'db_uname'} = $db_uname;
+  $self->{'db_passwd'} = $db_passwd;
+}
+
+=pod
+
+=head2 set_host_infos
+
+Defines the hostname and port where the database resides. The use of this
+function might not absolutely be needed. For example, the "mysql" backend
+default's host is "localhost". So if your database is stored on the same
+machine as your webserver, you will not need to use this function.
+
+=over
+
+=item Parameters
+
+=over
+
+=item hostname
+
+A string representing the hostname of the machine your database engine is
+running on.
+
+=item port
+
+An integer representing the TCP/IP port your database daemon is listening on.
+
+=back
+
+=item Return values
+
+This method returns nothing.
+
+=back
+
+=cut
+
+sub set_host_infos {
+  my ($self, $db_host, $db_port) = @_;
+
+  croak "A hostname/address is already defined  (".$self->{'db_host'}
+    .") for this CGI::Listman instance.\n"
+      if (defined $self->{'db_host'} && $self->{'db_host'} ne '');
+  croak "A port is already defined (".$self->{'db_port'}
+    .") for this CGI::Listman instance.\n"
+      if (defined $self->{'db_port'} && $self->{'db_port'} ne '');
+
+  $self->{'db_host'} = $db_host;
+  $self->{'db_port'} = $db_port;
 }
 
 =pod
