@@ -1,3 +1,9 @@
+2002-09-17  Wolfgang Sourdeau  <wolfgang@contre.com>
+
+	* Listman.pm (_prepare_record): - to avoid errors with DBI
+	insertions, we need to escape the simple quotes...
+	- version number bumped to 0.04
+
 2002-08-16  Wolfgang Sourdeau  <wolfgang@contre.com>
 
 	* CGI/Listman.pm: version 0.03

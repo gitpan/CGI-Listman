@@ -1,4 +1,4 @@
-CGI::Listman 0.03 (adpOp)
+CGI::Listman 0.04 (apdOp)
 =========================
 
 CGI::Listman provides an object-oriented interface to easily manage
@@ -13,6 +13,10 @@ it is ready, it will be easy to implement for other SQL databases.
 
 News
 ----
+2002-09-17 - revision 0.04
+	   - bugfix related to DBI insertions (see ChangeLog)
+	   - fixed dlsip from "adpOp" to "apdOp"
+
 2002-08-16 - revision 0.03
 	   - changed files disposition within the archive
 	   - completed documentation

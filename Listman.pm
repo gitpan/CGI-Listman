@@ -19,7 +19,7 @@ use CGI::Listman::line;
 use CGI::Listman::selection;
 
 use vars qw($VERSION);
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 =pod
 
@@ -742,6 +742,7 @@ sub _prepare_record {
 
   my $record_line = "'".$line->{'number'}."'";
   foreach my $record (@records) {
+    $record =~ s/\'/\\\'/g;
     $record = '' unless (defined $record);
     $record_line .= ", '".$record."'";
   }
