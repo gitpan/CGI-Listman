@@ -1,0 +1,40 @@
+CGI::Listman 0.01 (adpOp)
+=========================
+
+CGI::Listman provides an object-oriented interface to easily manage
+web-based subscribtion lists. It implements concepts such as
+"dictionaries", "selections", "exporters". It provides some checking
+facilities (field duplication or requirements) and uses the DBI interface
+so as to provide a backend-independent storage area (PostgreSQL, ...).
+
+Currently only the CSV backend is known to work for storing data. The
+MySQL backend support might work but has barely entered alpha stage. Once
+it is ready, it will be easy to implement for other SQL databases.
+
+News
+----
+2002-08-05 - initial public revision 0.01
+	   - begin work on MySQL support
+
+Dependencies
+------------
+This module requires these other modules and libraries:
+
+  DBD
+  Text::CSV_XS
+
+Quick installation instructions
+-------------------------------
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+Copyright
+---------
+Copyright (C) 2002 iScream multimédia <info@iScream.ca>
+
+This package is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.

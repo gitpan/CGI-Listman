@@ -1,0 +1,10 @@
+2002-08-06  Wolfgang Sourdeau  <wolfgang@contre.com>
+
+	* Listman.pm (_dbi_setup): initial work and bugfixes for real
+	databases support (mysql).
+	* Revision 0.01
+
+2002-08-04  Wolfgang Sourdeau  <wolfgang@contre.com>
+
+	* Listman.pm: Initial revision 0.00
+
